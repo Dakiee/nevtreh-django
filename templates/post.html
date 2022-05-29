@@ -1,0 +1,201 @@
+{% extends 'base.html' %} {% block container %}
+<div class="min-h-screen bg-gray-100 p-0 sm:p-12">
+  <div
+    class="
+      mx-auto
+      max-w-md
+      px-6
+      py-12
+      bg-white
+      border-0
+      shadow-lg
+      sm:rounded-3xl
+    "
+  >
+    <h1
+      class="
+        text-2xl
+        mb-8
+        bg-red-500
+        hover:bg-red-400
+        text-white
+        font-bold
+        py-2
+        px-4
+        border-b-4 border-red-700
+        hover:border-red-500
+        rounded
+      "
+    >
+      Post
+    </h1>
+    <form id="personForm" method="POST">{% csrf_token %}
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.owner}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Owner is required
+        </span>
+      </div>
+      
+
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.question}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Question is required
+        </span>
+      </div>
+<div class="flex flex-row space-x-4">
+        <div class="relative z-0 w-full mb-5">
+          <h2
+            class="
+              pt-3
+              pb-2
+              block
+              w-full
+              px-0
+              mt-0
+              bg-transparent
+              border-0 border-b-2
+              appearance-none
+              focus:outline-none focus:ring-0 focus:border-black
+              border-gray-200
+            "
+          />Likes: {{form.like}}</h2>
+        </div>
+        
+        <div class="relative z-0 w-full">
+          <h2
+            class="
+              pt-3
+              pb-2
+              block
+              w-full
+              px-0
+              mt-0
+              bg-transparent
+              border-0 border-b-2
+              appearance-none
+              focus:outline-none focus:ring-0 focus:border-black
+              border-gray-200
+            "
+          />Comments:  {{form.comments}}</h2>
+        </div>
+      </div>
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.image}}</h2>
+      </div>
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.link}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Link is required
+        </span>
+      </div>
+      
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />Хуваалцсан тоо: {{form.share}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Share is required
+        </span>
+      </div>
+      <button
+        id="button"
+        type="button"
+        class="
+          w-full
+          px-6
+          py-3
+          mt-3
+          text-lg text-white
+          transition-all
+          duration-150
+          ease-linear
+          rounded-lg
+          shadow
+          outline-none
+          bg-pink-500
+          hover:bg-pink-600 hover:shadow-lg
+          focus:outline-none
+        "
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+  {% endblock %} {% block footer %}
+  <script>
+    var form_fields = document.getElementsByTagName("input");
+    form_fields[1].placeholder = "Асуулт";
+    form_fields[5].placeholder = "Линк";
+  </script>
+{% endblock %}

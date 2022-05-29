@@ -1,0 +1,81 @@
+{% extends 'base.html' %} {% block header %}
+<style>
+  html {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    background: white;
+  }
+</style>
+<div class="font-bold text-center text-white">
+  <div class="border-4 border-red-300 bg-red-300">
+    <h1>Group List</h1>
+  </div>
+</div>
+{% endblock %} {% block container %}
+<div class="text-right">
+  <a href="/group" class="btn bg-green-600">Add</a>
+</div>
+<form method="POST" id="my_form">
+  {% csrf_token %}
+  <input name="delete" type="hidden" id="id_delete" />
+</form>
+
+<form method="POST" id="my_form">
+  {% csrf_token %}
+  <input name="admin" type="text" />
+  <input name="search" type="submit" value="хайх" />
+</form>
+
+<table class="table-auto border-separate border-green-800 text-center">
+  <thead>
+    <tr class="bg-emerald-200">
+      <th>{{Group.id}}</th>
+      <th class="w-1/6">Admin</th>
+      <th class="w-1/6">Moderator</th>
+      <th class="w-1/6">Members</th>
+      <th class="w-1/6">Privacy</th>
+      <th class="w-1/6">Visible</th>
+      <th class="w-1/6">Type</th>
+      <th class="w-1/6">Rules</th>
+      <th class="w-1/6">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Group in group_list %}
+    <tr>
+      <td></td>
+      <td>{{Group.admin}}</td>
+      <td>{{Group.moderator}}</td>
+      <td>{{Group.members}}</td>
+      <td>{{Group.privacy}}</td>
+      <td>{{Group.visible}}</td>
+      <td>{{Group.group_type}}</td>
+      <td>{{Group.rules}}</td>
+      <td>{{Group.link}}</td>
+      <td>
+        <a href="/group/{{Group.pk}}/edit/" class="btn bg-yellow-300">Edit</a>
+      </td>
+      <td>
+        <a href="javascript:group_delete({{Group.pk}})" class="btn bg-red-600"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %} {% block footer %}
+<script>
+  function group_delete(pk) {
+    var r = confirm("Та итгэлтэй байна уу!");
+    if (r == true) {
+      document.getElementById("id_delete").value = pk;
+      document.getElementById("my_form").submit();
+    } else {
+      document.getElementById("id_delete").value = "";
+    }
+  }
+</script>
+{% endblock %}

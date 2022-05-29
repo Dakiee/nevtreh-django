@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block header %}
+<style>
+  html {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    background: white;
+  }
+</style>
+<div class="font-bold text-center text-white">
+  <div class="border-4 border-red-300 bg-red-300">
+    <h1>Page List</h1>
+  </div>
+</div>
+{% endblock %} {% block container %}
+<div class="text-right">
+  <a href="/post" class="btn bg-green-600">Add</a>
+</div>
+<form method="POST" id="my_form">
+  {% csrf_token %}
+  <input name="delete" type="hidden" id="id_delete" />
+</form>
+
+<form method="POST" id="my_form">
+  {% csrf_token %}
+  <input name="admin" type="text" />
+  <input name="search" type="submit" value="хайх" />
+</form>
+
+<table class="table-auto border-separate border-green-800 text-center">
+  <thead>
+    <tr class="bg-emerald-200">
+      <th>{{Page.id}}</th>
+      <th class="w-1/6">Owner</th>
+      <th class="w-1/6">like</th>
+      <th class="w-1/6">comments</th>
+      <th class="w-1/6">share</th>
+      <th class="w-1/6">image</th>
+      <th class="w-1/6">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for Page in post_list %}
+    <tr>
+      <td></td>
+      <td>{{Page.owner}}</td>
+      <td>{{Page.like}}</td>
+      <td>{{Page.comments}}</td>
+      <td>{{Page.share}}</td>
+      <td>{{Page.image}}</td>
+      <td>{{Page.link}}</td>
+      <td>
+        <a href="/post/{{Page.pk}}/edit/" class="btn bg-yellow-300">Edit</a>
+      </td>
+      <td>
+        <a href="javascript:post_delete({{Page.pk}})" class="btn bg-red-600"
+          >Delete</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %} {% block footer %}
+<script>
+  function post_delete(pk) {
+    var r = confirm("Та итгэлтэй байна уу!");
+    if (r == true) {
+      document.getElementById("id_delete").value = pk;
+      document.getElementById("my_form").submit();
+    } else {
+      document.getElementById("id_delete").value = "";
+    }
+  }
+</script>
+{% endblock %}

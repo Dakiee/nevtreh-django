@@ -1,0 +1,243 @@
+{% extends 'base.html' %} {% block container %}
+<div class="min-h-screen bg-gray-100 p-0 sm:p-12">
+  <div
+    class="
+      mx-auto
+      max-w-md
+      px-6
+      py-12
+      bg-white
+      border-0
+      shadow-lg
+      sm:rounded-3xl
+    "
+  >
+    <h1
+      class="
+        text-2xl
+        mb-8
+        bg-blue-500
+        hover:bg-blue-400
+        text-white
+        font-bold
+        py-2
+        px-4
+        border-b-4 border-blue-700
+        hover:border-blue-500
+        rounded
+      "
+    >
+      Facebook
+    </h1>
+    <form id="personForm" method="POST">{% csrf_token %}
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.user_name}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Name is required
+        </span>
+      </div>
+      
+
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.birth_date}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Birth date is required
+        </span>
+      </div>
+<div class="flex flex-row space-x-4">
+        <div class="relative z-0 w-full mb-5">
+          <h2
+            class="
+              pt-3
+              pb-2
+              block
+              w-full
+              px-0
+              mt-0
+              bg-transparent
+              border-0 border-b-2
+              appearance-none
+              focus:outline-none focus:ring-0 focus:border-black
+              border-gray-200
+            "
+          />Country: {{form.country}}</h2>
+        </div>
+        
+        <div class="relative z-0 w-full">
+          <h2
+            class="
+              pt-3
+              pb-2
+              block
+              w-full
+              px-0
+              mt-0
+              bg-transparent
+              border-0 border-b-2
+              appearance-none
+              focus:outline-none focus:ring-0 focus:border-black
+              border-gray-200
+            "
+          />City:  {{form.city}}</h2>
+        </div>
+      </div>
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.friends}}</h2>
+      </div>
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.email}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          E-mail is required
+        </span>
+      </div>
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.link}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Link is required
+        </span>
+      </div>
+      
+      <div class="relative z-0 w-full mb-5">
+        <h2
+          class="
+            pt-3
+            pb-2
+            block
+            w-full
+            px-0
+            mt-0
+            bg-transparent
+            border-0 border-b-2
+            appearance-none
+            focus:outline-none focus:ring-0 focus:border-black
+            border-gray-200
+          "
+        />{{form.mobile}}</h2>
+        <span class="text-sm text-red-600 hidden" id="error">
+          Number is required
+        </span>
+      </div>
+      <button
+        id="button"
+        type="button"
+        class="
+          w-full
+          px-6
+          py-3
+          mt-3
+          text-lg text-white
+          transition-all
+          duration-150
+          ease-linear
+          rounded-lg
+          shadow
+          outline-none
+          bg-pink-500
+          hover:bg-pink-600 hover:shadow-lg
+          focus:outline-none
+        "
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+  {% endblock %} {% block footer %}
+  <script>
+    var form_fields = document.getElementsByTagName("input");
+    form_fields[1].placeholder = "Нэрээ оруулна уу";
+    form_fields[2].placeholder = "Төрсөн он сар";
+    form_fields[3].placeholder = "Нийт Fb-н найзын тоо";
+    form_fields[4].placeholder = "Э-майл";
+    form_fields[5].placeholder = "Линк";
+    form_fields[6].placeholder = "Утасны дугаар";
+  </script>
+{% endblock %}
+</form>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  $("#id_country").change(function () {
+    var url = $("#personForm").attr("data-cities-url");
+    var countryId = $(this).val();
+
+    $.ajax({
+      url: url,
+      data: {
+        country: countryId,
+      },
+      success: function (data) {
+        $("#id_city").html(data);
+      },
+    });
+  });
+</script>
